@@ -102,6 +102,24 @@ class SquarePieView(ctx : Context) : View(ctx) {
             state.startUpdating(startcb)
         }
     }
+    data class Renderer(var view : SquarePieView) {
+        val squarePie = SquarePie(0)
+        val animator = Animator(view)
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#212121"))
+            squarePie.draw(canvas, paint)
+            animator.animate {
+                squarePie.update {
+                    animator.stop()
+                }
+            }
+        }
+        fun handleTap() {
+            squarePie.startUpdating {
+                animator.start()
+            }
+        }
+    }
     companion object {
         fun create(activity : Activity) : SquarePieView {
             val view = SquarePieView(activity)
