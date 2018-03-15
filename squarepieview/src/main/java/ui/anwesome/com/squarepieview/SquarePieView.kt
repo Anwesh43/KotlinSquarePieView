@@ -3,6 +3,7 @@ package ui.anwesome.com.squarepieview
 /**
  * Created by anweshmishra on 15/03/18.
  */
+import android.app.Activity
 import android.content.*
 import android.view.*
 import android.graphics.*
@@ -99,6 +100,13 @@ class SquarePieView(ctx : Context) : View(ctx) {
         }
         fun startUpdating(startcb : () -> Unit) {
             state.startUpdating(startcb)
+        }
+    }
+    companion object {
+        fun create(activity : Activity) : SquarePieView {
+            val view = SquarePieView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
