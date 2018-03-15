@@ -28,7 +28,7 @@ class SquarePieView(ctx : Context) : View(ctx) {
             if (Math.abs(scales[j] - prevScale) > 1) {
                 scales[j] = prevScale + dir
                 j += jDir
-                if (dir == 0f) {
+                if (j == scales.size || j == -1) {
                     jDir *= -1
                     dir = 0f
                     j += jDir
@@ -88,7 +88,9 @@ class SquarePieView(ctx : Context) : View(ctx) {
                     canvas.save()
                     canvas.translate(sx * sf, size/2 * sf)
                     canvas.rotate(90f * i * state.scales[2])
-                    canvas.drawLine(0f, 0f, 0f, -size * sf * state.scales[0], paint)
+                    val sh = (size/2) * state.scales[0]
+                    val my = -(size/2) * sf
+                    canvas.drawLine(0f, my + sh, 0f, my - sh, paint)
                     canvas.restore()
                 }
             }
